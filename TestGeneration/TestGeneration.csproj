@@ -39,16 +39,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj">
-      <Project>{3E047144-58EE-4A85-BCE0-5FAB0911C42A}</Project>
-      <Name>MultiplatformPlatformGame.Generation</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="test-files\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test-files\component.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj">
+      <Project>{3E047144-58EE-4A85-BCE0-5FAB0911C42A}</Project>
+      <Name>MultiplatformPlatformGame.Generation</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

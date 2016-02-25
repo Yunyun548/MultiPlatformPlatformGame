@@ -48,6 +48,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="BlockComponent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
