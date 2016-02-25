@@ -18,20 +18,47 @@
 			</div>
 			<div class="col-md-6 tool-box">
 				<div class="content-container">
-					<p>Tools box</p>
-                    {% for c in components %}
-                        {{ c.TexturePath }}
-                        {{ c.physics.passableG }}
-                        {{ c.name }}
-                    {% endfor %}}
-					<ul class="component-container">
-					</ul>
+					<div class="row">
+						<div class="col-md-6">							
+							<h5>Tools box</h5>
+							<ul class="component-container">
+
+			                    {% for c in components %}
+			                    	<li data-comp-id="{{ loop.index }}">
+			                        	<img src="{{ asset(c.TexturePath)}}" height="40px"> 
+			                        	{{ c.name }}
+
+			                        	<div class="comp-property">
+						                    {% for key,value in c.physics%}
+						                    <p>
+						                        {{ key }}
+						                        {% if value == true %}
+						                        	oui
+					                        	{% else %}
+					                        		non
+						                        {% endif %}
+						                    </p>
+						                    {% endfor %}
+			                        	</div>
+			                    	</li>
+			                    {% endfor %}
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<div class="comp-property-container"> 
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="col-md-6 work-space">
 				<div class="content-container">
-					<p>Workspace</p>
+					<h5>
+						Workspace 
+						<input type="text" class="form-control" placeholder="Nom de mon bloc">	
+						<button id="dl-block" class="btn btn-default" disabled>Récupérer le block</button>
+					</h5>
 					<div class="block-factory">
 					</div>
 				</div>				

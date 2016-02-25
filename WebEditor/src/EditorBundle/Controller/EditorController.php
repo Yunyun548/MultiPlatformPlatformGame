@@ -24,6 +24,7 @@ class EditorController extends Controller
          "passableH" => true,
          "passableB" => true,
          "destructible" => false);
+        $c1->setPhysics($physics);
 
         $c2 = new Component();
         $c2->setTexturePath('/img/tiles/mur_bg.png');
@@ -33,6 +34,7 @@ class EditorController extends Controller
          "passableH" => true,
          "passableB" => true,
          "destructible" => false);
+        $c2->setPhysics($physics);
 
         $components = array();
         array_push($components, $c1);
