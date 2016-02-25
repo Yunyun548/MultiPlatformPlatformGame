@@ -2,6 +2,6 @@ editor_homepage:
     path:     /
     defaults: { _controller: EditorBundle:Editor:index }
 
-editor_persist-json:
+editor_persist_json:
     path:     /persist-blocs
     defaults: { _controller: EditorBundle:Editor:persistJson }

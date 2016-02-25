@@ -5,13 +5,16 @@ $(function(){
 		compContainer : $(".component-container"),
 		compPropContainer : $(".comp-property-container"),
 
-		blockSideSize : 3, // u
+		blockSideSize : 1, // u
 		componentSideSize : 150 //px
 
 	};
 
+
+	var postBlockUrl = $("#core-script").data("post-block-url");
+
 	var init = function(){
-		generateEmptyBlock();
+		initBlockFactory();
 		initAvailableComponents();
 		initBtn();
 	};
@@ -22,6 +25,27 @@ $(function(){
 		components.click(function(){
 						selectComponent($(this));
 					});
+	};
+	var initBlockFactory = function(){
+		// +10 pour le margin
+		var blockFactorySideSize = (opt.componentSideSize + 10) * opt.blockSideSize;
+
+		$(".block-factory")
+					.css("width", blockFactorySideSize)
+					.css("height", blockFactorySideSize)
+
+
+		for (var i = opt.blockSideSize - 1; i >= 0; i--) {
+			for (var j = opt.blockSideSize - 1; j >= 0; j--) {
+				$("<div>").addClass("comp")
+					.css("width", opt.componentSideSize)
+					.css("height", opt.componentSideSize)
+					.click(function(){
+						attachComponent($(this));
+					})
+					.appendTo(opt.wsContainer);
+			};
+		};
 	};
 
 	var initBtn = function(){
@@ -44,8 +68,19 @@ $(function(){
 				block.matrix.push($(e).attr("data-comp-id"));
 			});
 			console.log(block);
+			$.ajax({
+				url: postBlockUrl,
+				dataType: "json",
+				method: "POST",
+				data: block
+			})
+			.done(function( msg ) {
+				alert( "Data Saved: " + msg );
+			});
+
 		});	
 	}
+
 
 	var selectComponent = function(el){
 		var selClass = "selected";
@@ -62,28 +97,6 @@ $(function(){
 
 			opt.compPropContainer.append(propertiesEl);
 		}
-	};
-
-	var generateEmptyBlock = function(){
-		// +10 pour le margin
-		var blockFactorySideSize = (opt.componentSideSize + 10) * opt.blockSideSize;
-
-		$(".block-factory")
-					.css("width", blockFactorySideSize)
-					.css("height", blockFactorySideSize)
-
-
-		for (var i = opt.blockSideSize - 1; i >= 0; i--) {
-			for (var j = opt.blockSideSize - 1; j >= 0; j--) {
-				$("<div>").addClass("comp")
-					.css("width", opt.componentSideSize)
-					.css("height", opt.componentSideSize)
-					.click(function(){
-						attachComponent($(this));
-					})
-					.appendTo(opt.wsContainer);
-			};
-		};
 	};
 
 	var attachComponent = function(el){

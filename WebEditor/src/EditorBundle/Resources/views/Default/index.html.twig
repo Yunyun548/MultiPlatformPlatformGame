@@ -70,6 +70,9 @@
    <footer>
        <script src="{{ asset('/js/jquery-2.2.0.min.js') }}"></script>
        <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-       <script src="{{ asset('/js/script.js') }}"></script>
+       <script src="{{ asset('/js/script.js') }}"
+           id="core-script"
+           data-post-block-url="{{ path('editor_persist_json') }}">
+       </script>
    </footer>
 </html>				
