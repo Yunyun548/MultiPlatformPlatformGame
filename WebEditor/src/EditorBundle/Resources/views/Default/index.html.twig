@@ -6,23 +6,23 @@
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
        <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
        <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+       <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
    </head>
    <body>
 </body>
-	<div class="content">
+	<div class="content body-container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="content-container">
-					header bar
+				<div id='header' class="content-container">
+					<h2>Bienvenue sur le meilleur éditeur de bloc du monde.</h2>
 				</div>
 			</div>
 			<div class="col-md-6 tool-box">
 				<div class="content-container">
 					<div class="row">
-						<div class="col-md-6">							
-							<h5>Tools box</h5>
-							<ul class="component-container">
-
+						<div class="col-md-6 border-right">							
+							<h5 class="mb15 pb15 f20px">Tools box</h5>
+							<ul class="component-container" id="block-list">
 			                    {% for c in components %}
 			                    	<li data-comp-id="{{ c.id }}">
 			                        	<img src="{{ asset(c.TexturePath)}}" height="40px"> 
