@@ -16,27 +16,9 @@ class EditorController extends Controller
     public function indexAction()
     {
 
-        $c1 = new Component();
-        $c1->setTexturePath('/img/tiles/ciel.png');
-        $c1->setName("ciel");
-        $physics = array("passableG" => true,
-         "passableD" => true,
-         "passableH" => true,
-         "passableB" => true,
-         "destructible" => false);
+        $em = $this->get('doctrine.orm.entity_manager');
 
-        $c2 = new Component();
-        $c2->setTexturePath('/img/tiles/mur_bg.png');
-        $c2->setName("mur");
-        $physics = array("passableG" => true,
-         "passableD" => true,
-         "passableH" => true,
-         "passableB" => true,
-         "destructible" => false);
-
-        $components = array();
-        array_push($components, $c1);
-        array_push($components, $c2);
+        $components = $em->getRepository('EditorBundle:Component')->findAll();
 
         return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
     }

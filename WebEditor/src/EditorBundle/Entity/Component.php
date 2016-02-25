@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Component
  *
  * @ORM\Table(name="component")
+ * @ORM\Entity(repositoryClass="EditorBundle\Repository\ComponentRepository")
  */
 class Component
 {
@@ -44,7 +45,7 @@ class Component
     /**
      * @ORM\ManyToMany(targetEntity="Bloc", inversedBy="components")
      */
-    protected $bloc;
+    protected $blocs;
 
     /**
      * Get id
@@ -80,24 +81,24 @@ class Component
     }
 
     /**
-     * Set texture
+     * Set texturePath
      *
-     * @param string $texture
+     * @param string $texturePath
      * @return Component
      */
-    public function setTexturePath($texture)
+    public function setTexturePath($texturePath)
     {
-        $this->texture = $texture;
+        $this->texturePath = $texturePath;
     }
 
     /**
-     * Get texture
+     * Get texturePath
      *
      * @return string 
      */
     public function getTexturePath()
     {
-        return $this->texture;
+        return $this->texturePath;
     }
 
     /**
@@ -123,9 +124,33 @@ class Component
         return $this->physics;
     }
 
+    public function getBlocs() {
+        return $this->blocs;
+    }
 
-    public function getBlock() {
-        return $this->bloc;
+    /**
+     * Add blocs
+     *
+     * @param \MAM\CoreBundle\Entity\Bloc $blocs
+     * @return Components
+     */
+    public function addBlocs(\EditorBundle\Entity\Bloc $blocs)
+    {
+        $blocs->addComponents($this);
+        $this->blocs[] = $blocs;
+
+        return $this;
+    }
+
+    /**
+     * Remove blocs
+     *
+     * @param \MAM\CoreBundle\Entity\Bloc $blocs
+     */
+    public function removeBlocs(\EditorBundle\Entity\Bloc $blocs)
+    {
+        $this->blocs->removeElement($blocs);
+        $blocs->removeComponents($this);
     }
 
 }
