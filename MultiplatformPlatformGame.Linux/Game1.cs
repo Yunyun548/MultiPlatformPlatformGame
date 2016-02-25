@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using MultiplatformPlatformGame.Models
+
 namespace MultiplatformPlatformGame.Linux
 {
     /// <summary>
@@ -11,6 +13,9 @@ namespace MultiplatformPlatformGame.Linux
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+		public const int WINDOW_WIDTH = 1280;
+		public const int WINDOW_HEIGHT = 720;
 
         public Game1()
         {
