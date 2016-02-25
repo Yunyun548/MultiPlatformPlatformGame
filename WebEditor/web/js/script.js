@@ -1,17 +1,20 @@
 $(function(){
 
 	var opt = {
+		postBlockUrl : $("#core-script").data("post-block-url"),
 		wsContainer : $(".block-factory"),
 		compContainer : $(".component-container"),
 		compPropContainer : $(".comp-property-container"),
 
-		blockSideSize : 1, // u
+		defaultComp :{
+			id :  $("#core-script").data("default-id"),
+			src :  $("#core-script").data("default-src")
+		},
+
+		blockSideSize : 3, // u
 		componentSideSize : 150 //px
 
 	};
-
-
-	var postBlockUrl = $("#core-script").data("post-block-url");
 
 	var init = function(){
 		initBlockFactory();
@@ -42,7 +45,9 @@ $(function(){
 					.css("height", opt.componentSideSize)
 					.click(function(){
 						attachComponent($(this));
-					})
+					})					
+					.append($("<img>").prop("src", opt.defaultComp.src))
+					.attr("data-comp-id", opt.defaultComp.id)
 					.appendTo(opt.wsContainer);
 			};
 		};
@@ -69,7 +74,7 @@ $(function(){
 			});
 			console.log(block);
 			$.ajax({
-				url: postBlockUrl,
+				url: opt.postBlockUrl,
 				dataType: "json",
 				method: "POST",
 				data: block
