@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlatformPlatformGame.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Linux", "MultiplatformPlatformGame.Linux\MultiplatformPlatformGame.Linux.csproj", "{67E8D15D-6DBC-4B3C-B915-110CD2141ED7}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MultiplatformPlatformGame.Gameplay", "MultiplatformPlatformGame.Gameplay\MultiplatformPlatformGame.Gameplay.csproj", "{AB382906-D8C0-4208-89B0-612C293E1300}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Gameplay", "MultiplatformPlatformGame.Gameplay\MultiplatformPlatformGame.Gameplay.csproj", "{AB382906-D8C0-4208-89B0-612C293E1300}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MultiplatformPlatformGame.Models", "MultiplatformPlatformGame.Models\MultiplatformPlatformGame.Models.csproj", "{B37372A6-4AC8-4A6E-A944-CBBA4116938F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Models", "MultiplatformPlatformGame.Models\MultiplatformPlatformGame.Models.csproj", "{B37372A6-4AC8-4A6E-A944-CBBA4116938F}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MultiplatformPlatformGame.Generation", "MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj", "{3E047144-58EE-4A85-BCE0-5FAB0911C42A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Generation", "MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj", "{3E047144-58EE-4A85-BCE0-5FAB0911C42A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Configuration", "MultiplatformPlatformGame.Configuration\MultiplatformPlatformGame.Configuration.csproj", "{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MultiplatformPlatformGame.Configuration", "MultiplatformPlatformGame.Configuration\MultiplatformPlatformGame.Configuration.csproj", "{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Editor", "MultiplatformPlatformGame.Editor\MultiplatformPlatformGame.Editor.csproj", "{D71D2E29-5762-4212-B397-19514591461E}"
 EndProject
