@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MultiplatformPlatformGame.Generation
 {
@@ -12,6 +13,9 @@ namespace MultiplatformPlatformGame.Generation
 		public String Name {get;set;}
 		public int[] Matrix {get;set;}
 		public Component[] ComponentMatrix {get;set;}
+
+		public void BindComponents(List<Component> components)
+		{
+		}
 	}
 }
-
