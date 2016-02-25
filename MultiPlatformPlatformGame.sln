@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplatformPlatformGame.Configuration", "MultiplatformPlatformGame.Configuration\MultiplatformPlatformGame.Configuration.csproj", "{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlatformPlatformGame.WebEditor", "MultiPlatformPlatformGame.WebEditor\MultiPlatformPlatformGame.WebEditor.csproj", "{58242391-2A4F-4E82-8793-E6ED922779A3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,14 +67,6 @@ Global
 		{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}.Release|x86.ActiveCfg = Release|Any CPU
 		{15BCB983-A41B-48A1-AEB4-AD0E6C4B63B0}.Release|x86.Build.0 = Release|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Debug|x86.Build.0 = Debug|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Release|x86.ActiveCfg = Release|Any CPU
-		{58242391-2A4F-4E82-8793-E6ED922779A3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
