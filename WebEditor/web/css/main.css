@@ -1,0 +1,13 @@
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
+
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
