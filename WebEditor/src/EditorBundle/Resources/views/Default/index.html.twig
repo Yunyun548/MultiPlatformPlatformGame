@@ -31,7 +31,7 @@
 			                        	<div class="comp-property">
 						                    {% for key,value in c.physics%}
 						                    <p>
-						                        {{ key }}
+						                        <span> {{ key }} : </span>
 						                        {% if value == true %}
 						                        	oui
 					                        	{% else %}
@@ -70,6 +70,12 @@
    <footer>
        <script src="{{ asset('/js/jquery-2.2.0.min.js') }}"></script>
        <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-       <script src="{{ asset('/js/script.js') }}"></script>
+       <script src="{{ asset('/js/script.js') }}"
+           id="core-script"
+           data-post-block-url="{{ path('editor_persist_json') }}"
+           data-default-id =" {{components[0].id}}"
+           data-default-src ="{{components[0].TexturePath}}"
+           >
+       </script>
    </footer>
 </html>				
