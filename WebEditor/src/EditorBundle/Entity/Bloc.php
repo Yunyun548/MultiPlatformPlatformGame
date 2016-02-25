@@ -28,6 +28,11 @@ class Bloc
     private $name;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Component", mappedBy="bloc")
+     */
+    private $components;
+
+    /**
      * Get id
      *
      * @return integer 
