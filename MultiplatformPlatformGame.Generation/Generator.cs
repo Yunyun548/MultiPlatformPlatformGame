@@ -28,7 +28,7 @@ namespace MultiplatformPlatformGame.Generation
 		public void AnalyseBlocks()
 		{
 			foreach(Block b in blocks) {
-				blocks.BindComponents (components);
+				b.BindComponents (components);
 				AnalyseBlock (b);
 			}
 		}

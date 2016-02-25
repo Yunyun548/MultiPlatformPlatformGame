@@ -14,7 +14,7 @@ namespace MultiplatformPlatformGame.Generation
 			{
 			}
 
-			public bool solid { get; set; }
+			public bool Solid { get; set; }
 		}
 
 		public Component()
@@ -25,5 +25,10 @@ namespace MultiplatformPlatformGame.Generation
 		public String Name { get; set; }
 		public String Texture { get; set; }
 		public Properties Physics { get; set; }
+
+		public bool Solid {
+			get { return Physics.Solid; }
+			set { Physics.Solid = value; }
+		}
     }
 }

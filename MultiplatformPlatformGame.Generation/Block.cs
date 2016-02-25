@@ -27,7 +27,7 @@ namespace MultiplatformPlatformGame.Generation
 					}
 				}
 				if (!found) {
-					throw KeyNotFoundException (String.Format("Component id {0} specified in Block id {1} not registered", id, Id));
+					throw new KeyNotFoundException (String.Format("Component id {0} specified in Block id {1} not registered", id, Id));
 				}
 			}
 		}
