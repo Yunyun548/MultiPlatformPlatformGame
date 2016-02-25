@@ -1,13 +1,29 @@
-ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;
-}
-
-@media (min-width: 979px) {
-  ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;
-  }
-}
 
 .mb15 {
     margin-bottom: 15px;
 }
+
+
+.content .content-container{
+	background: #EEE;
+	margin: 10px;
+	padding: 10px;
+}
+
+.content .component-container li.selected{
+	font-size: 16px;
+	background: #DDD;
+}
+
+.block-factory{
+	width: 200px;
+	height: 200px;
+}
+
+.block-factory .comp{
+	width: 50px;
+	height: 50px;
+	float: left;
+	background: #999;
+}
+
