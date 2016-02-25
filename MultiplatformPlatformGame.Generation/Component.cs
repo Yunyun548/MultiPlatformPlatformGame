@@ -7,7 +7,16 @@ using System.Threading.Tasks;
 namespace MultiplatformPlatformGame.Generation
 {
     public class Component
-    {
+	{
+		public class Properties
+		{
+			public Properties()
+			{
+			}
+
+			public bool solid { get; set; }
+		}
+
 		public Component()
 		{
 		}
@@ -15,6 +24,6 @@ namespace MultiplatformPlatformGame.Generation
 		public int Id { get; set; }
 		public String Name { get; set; }
 		public String Texture { get; set; }
-		public Object Physics { get; set; }
+		public Properties Physics { get; set; }
     }
 }
