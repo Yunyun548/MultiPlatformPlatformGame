@@ -25,10 +25,19 @@ $(function(){
 	};
 
 	var initBtn = function(){
+
+		$(".work-space h5 .form-control").keypress(function(){
+			
+			if (isBlockValid()) {
+				$("#dl-block").prop("disabled", false);
+			};
+		})
+			
+
 		$("#dl-block").click(function(){
 			var components = opt.wsContainer.find(".comp");
 			var block = {
-				name :"novo block",
+				name : $(".work-space h5 .form-control").val(),
 				matrix : []
 			}
 			$.each(components, function(i,e){

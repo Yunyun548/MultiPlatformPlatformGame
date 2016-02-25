@@ -24,7 +24,7 @@
 							<ul class="component-container">
 
 			                    {% for c in components %}
-			                    	<li data-comp-id="{{ loop.index }}">
+			                    	<li data-comp-id="{{ c.id }}">
 			                        	<img src="{{ asset(c.TexturePath)}}" height="40px"> 
 			                        	{{ c.name }}
 

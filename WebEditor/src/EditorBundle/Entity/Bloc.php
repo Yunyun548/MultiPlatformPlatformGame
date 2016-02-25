@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Bloc
  *
  * @ORM\Table(name="bloc")
+ * @ORM\Entity(repositoryClass="EditorBundle\Repository\BlocRepository")
  */
 class Bloc
 {
@@ -63,6 +64,35 @@ class Bloc
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add components
+     *
+     * @param \MAM\CoreBundle\Entity\Component $components
+     * @return Bloc
+     */
+    public function addComponents(\EditorBundle\Entity\Component $components)
+    {
+        $components->addBlocs($this);
+        $this->components[] = $components;
+
+        return $this;
+    }
+
+    /**
+     * Remove components
+     *
+     * @param \MAM\CoreBundle\Entity\Component $components
+     */
+    public function removeComponents(\EditorBundle\Entity\Component $components)
+    {
+        $this->components->removeElement($components);
+        $components->removeBlocs($this);
+    }
+
+    public function getComponents() {
+        return $this->components;
     }
 
 }
