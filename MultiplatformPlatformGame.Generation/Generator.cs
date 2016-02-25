@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Drawing;
 
 namespace MultiplatformPlatformGame.Generation
 {
@@ -53,7 +54,7 @@ namespace MultiplatformPlatformGame.Generation
             List<Room> rooms = new List<Room>();
 
             // Point de départ
-            Position start = new Position(0, 0);
+            Point start = new Point(0, 0);
             Room startRoom = new Room
             {
                 Position = start,
@@ -69,8 +70,8 @@ namespace MultiplatformPlatformGame.Generation
                 Room currentRoom;
                 if (cmpt >= rooms.Count)
                 {
-                    int topRight = rooms.Max(ro => ro.Position.Column);
-                    currentRoom = rooms.First(ro => ro.Position.Column == topRight);
+                    int topRight = rooms.Max(ro => ro.Position.X);
+                    currentRoom = rooms.First(ro => ro.Position.X == topRight);
                     currentRoom.OpenWalls = Opening.All;
                 }
                 else
@@ -98,23 +99,23 @@ namespace MultiplatformPlatformGame.Generation
             if ((currentRoom.OpenWalls & direction) == direction)
             {
                 Opening oppositeDirection;
-                Position newPosition = new Position(currentRoom.Position.Line, currentRoom.Position.Column);
+                Point newPosition = new Point(currentRoom.Position.X, currentRoom.Position.Y);
                 switch (direction)
                 {
                     case Opening.Up:
-                        newPosition.Line -= 1;
+                        newPosition.Y -= 1;
                         oppositeDirection = Opening.Down;
                         break;
                     case Opening.Right:
-                        newPosition.Column += 1;
+                        newPosition.X += 1;
                         oppositeDirection = Opening.Left;
                         break;
                     case Opening.Down:
-                        newPosition.Line += 1;
+                        newPosition.Y += 1;
                         oppositeDirection = Opening.Up;
                         break;
                     case Opening.Left:
-                        newPosition.Column -= 1;
+                        newPosition.X -= 1;
                         oppositeDirection = Opening.Right;
                         break;
                     default:
@@ -160,18 +161,7 @@ namespace MultiplatformPlatformGame.Generation
         class Room
         {
             public Opening OpenWalls { get; set; }
-            public Position Position { get; set; }
-        }
-
-        class Position
-        {
-            public int Line { get; set; }
-            public int Column { get; set; }
-            public Position(int line, int column)
-            {
-                Line = line;
-                Column = column;
-            }
+            public Point Position { get; set; }
         }
     }
 }
