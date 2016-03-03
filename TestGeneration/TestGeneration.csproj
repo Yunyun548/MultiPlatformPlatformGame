@@ -42,8 +42,9 @@
     <Folder Include="test-files\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="test-files\component.json" />
     <None Include="packages.config" />
+    <None Include="test-files\empty-component.json" />
+    <None Include="test-files\wall-component.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj">
