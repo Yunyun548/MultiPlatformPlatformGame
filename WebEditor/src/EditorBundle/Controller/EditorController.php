@@ -21,19 +21,7 @@ class EditorController extends Controller
 
         $components = $em->getRepository('EditorBundle:Component')->findAll();
 
-        $jsonArray = array();
-        foreach ($components as $component) {
-            $c = array('id' => $component->getId(),
-             'name' => $component->getName(),
-             'texture' => $component->getTexturePath(),
-             'physics' => $component->getPhysics());
-
-            array_push($jsonArray, $c);
-        }
-
-        $j = json_encode($jsonArray);
-
-        return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components, 'jsonArray' => $j));
+        return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
     }
 
     public function persistJsonAction(Request $request)
