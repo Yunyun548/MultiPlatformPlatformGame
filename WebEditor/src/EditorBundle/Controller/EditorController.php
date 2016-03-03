@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use EditorBundle\Entity\Bloc;
 use EditorBundle\Entity\Component;
 
@@ -15,9 +17,7 @@ class EditorController extends Controller
 {
     public function indexAction()
     {
-
         $em = $this->get('doctrine.orm.entity_manager');
-
 
         $components = $em->getRepository('EditorBundle:Component')->findAll();
 
@@ -31,12 +31,33 @@ class EditorController extends Controller
 
         if (!is_null($json_data)) {
 
+            $encoders = array(new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
             $bloc = $serializer->deserialize($json_data,'\EditorBundle\Entity\Bloc','json');
 
             $em->persist($bloc);
             $em->flush();
 
-            $a = array('status' => 'ok', 'message' => 'Le poireau');
+            $components = array();
+            foreach ($bloc->getComponents() as $component) {
+                $imagePath = file_get_contents($component->getTexturePath());
+                $base64 = base64_encode($imagePath);
+
+                $component = array('id' => $component->getId(),
+                 'name' => $component->getName(),
+                 'texture' => $base64,
+                 'physics' => $component->getPhysics());
+
+                array_push($components, $component);
+            }
+
+            $blocJson = array('id' => $bloc->getId(),
+             'name' => $bloc->getName(),
+             'components' => $components);
+
+            $a = array('status' => 'ok', 'bloc' => $blocJson);
             $json = json_encode($a);
             return new JsonResponse($json);
         }
