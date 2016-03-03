@@ -21,10 +21,22 @@ class EditorController extends Controller
 
         $components = $em->getRepository('EditorBundle:Component')->findAll();
 
-        return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
+        $jsonArray = array();
+        foreach ($components as $component) {
+            $c = array('id' => $component->getId(),
+             'name' => $component->getName(),
+             'texture' => $component->getTexturePath(),
+             'physics' => $component->getPhysics());
+
+            array_push($jsonArray, $c);
+        }
+
+        $j = json_encode($jsonArray);
+
+        return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components, 'jsonArray' => $j));
     }
 
-    public function persistJsonAction()
+    public function persistJsonAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $json_data = $request->request->get('json_data');
@@ -45,12 +57,12 @@ class EditorController extends Controller
                 $imagePath = file_get_contents($component->getTexturePath());
                 $base64 = base64_encode($imagePath);
 
-                $component = array('id' => $component->getId(),
+                $c = array('id' => $component->getId(),
                  'name' => $component->getName(),
                  'texture' => $base64,
                  'physics' => $component->getPhysics());
 
-                array_push($components, $component);
+                array_push($components, $c);
             }
 
             $blocJson = array('id' => $bloc->getId(),
@@ -67,5 +79,29 @@ class EditorController extends Controller
             $json = json_encode($a);
             return new JsonResponse($json);
         }
+    }
+
+    /* Save a new Component
+     * Parameters
+     *
+     *
+     *
+    */
+    public function saveComponentAction(Request $request) {
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $json_data = $request->request->get('json_data');
+
+        if (!is_null($json_data)) {
+            //
+            file_put_contents($file, $current);
+        }
+
+        else {
+            $a = array('status' => 'error', 'message' => 'Bad Parameters');
+            $json = json_encode($a);
+            return new JsonResponse($json);
+        }
+
     }
 }
