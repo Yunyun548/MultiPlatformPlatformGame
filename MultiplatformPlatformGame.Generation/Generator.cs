@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace MultiplatformPlatformGame.Generation
 {
@@ -21,13 +23,15 @@ namespace MultiplatformPlatformGame.Generation
 
         public void AddComponent(String filePath)
         {
-            Component c = JsonConvert.DeserializeObject<Component>(System.IO.File.ReadAllText(filePath));
+            string json = System.IO.File.ReadAllText(filePath);
+            Component c = this.Deserialize<Component>(json);
             components.Add(c);
         }
 
         public void AddBlock(String filePath)
         {
-            Block b = JsonConvert.DeserializeObject<Block>(System.IO.File.ReadAllText(filePath));
+            string json = System.IO.File.ReadAllText(filePath);
+            Block b = this.Deserialize<Block>(json);
             blocks.Add(b);
         }
 
@@ -186,6 +190,31 @@ namespace MultiplatformPlatformGame.Generation
                 }
             }
             return new Point(0, 0);
+        }
+
+        private string Serialize<T>(T parameter)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+            string json = null;
+            using (MemoryStream ms = new MemoryStream())
+            using (StreamReader sr = new StreamReader(ms))
+            {
+                ser.WriteObject(ms, parameter);
+                ms.Position = 0;
+                json = sr.ReadToEnd();
+            }
+            return json;
+        }
+
+        private T Deserialize<T>(string json)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+            T deserialized;
+            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+            {
+                deserialized = (T)ser.ReadObject(ms);
+            }
+            return deserialized;
         }
     }
 
