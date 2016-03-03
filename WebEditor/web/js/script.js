@@ -80,10 +80,10 @@ $(function(){
 				dataType: "json",
 				method: "POST",
 				data:{
-					json_data : {
+					json_data :JSON.stringify( {
 						name : block.name,
 						components :  JSON.stringify(block.components)
-					}
+					})
 				}
 			})
 			.done(function( msg ) {
