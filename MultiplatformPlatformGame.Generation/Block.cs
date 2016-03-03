@@ -19,7 +19,7 @@ namespace MultiplatformPlatformGame.Generation
 		{
 			ComponentMatrix = new List<List<BlockComponent>> ();
 
-			int BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
+			BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
 			int counter = 0;
 			List<BlockComponent> row = null;
 
