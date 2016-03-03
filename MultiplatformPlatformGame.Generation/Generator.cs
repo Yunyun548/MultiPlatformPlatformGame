@@ -16,15 +16,15 @@ namespace MultiplatformPlatformGame.Generation
 
         private readonly Random _r;
 
+		private List<Component> components;
+		private List<Block> blocks;
+
 		public Generator ()
 		{
             this._r = new Random(DateTime.Now.Millisecond);
 			components = new List<Component> ();
 			blocks = new List<Block> ();
 		}
-
-		private List<Component> components;
-		private List<Block> blocks;
 
 		public void AddComponent(String filePath)
 		{
