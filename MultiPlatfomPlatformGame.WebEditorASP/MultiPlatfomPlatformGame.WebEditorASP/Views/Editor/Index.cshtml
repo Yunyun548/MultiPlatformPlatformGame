@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MultiPlatfomPlatformGame.WebEditorASP.Models.Component>
+
+<div class="content body-container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div id='header' class="content-container">
+                <h2>Bienvenue sur le meilleur éditeur de bloc du monde.</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 tool-box">
+            <div class="content-container">
+                <div class="row">
+                    <div class="col-md-6 border-right">
+                        <h5 class="mb15 pb15 f20px">Tools box</h5>
+                        <ul class="component-container" id="block-list">
+                            @foreach (MultiPlatfomPlatformGame.WebEditorASP.Models.Component item in Model)
+                            {
+                                <li data-comp-id="@item.Id">
+                                    <img src="@Url.Content("~/Content" + item.TexturePath)" height="40px">
+                                    @item.Name.ToString()
+
+                                    <div class="comp-property">
+                                        @foreach (var property in item.Physics.GetType().GetProperties())
+                                        {
+                                            <p>
+                                                <span>@property.Name : </span> @property.GetValue(item.Physics, null)
+                                            </p>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="comp-property-container">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 work-space">
+            <div class="content-container">
+                <h5 class="pb15 mb15">
+                    Workspace
+                    <input type="text" class="form-control" placeholder="Nom de mon bloc">
+                    <button id="dl-block" class="btn btn-default" disabled>Récupérer le block</button>
+                </h5>
+                <div class="block-factory">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/script-editor.js")"
+            id="core-script" ;
+            data-post-block-url="@Url.Action("PersistJson", "Editor").ToString()"
+            data-default-id="@Model.ElementAt(0).Id.ToString()"
+            data-default-src="@Url.Content("~/Content" + Model.ElementAt(0).TexturePath).ToString()">
+    </script>
+}
