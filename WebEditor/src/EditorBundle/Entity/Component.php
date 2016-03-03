@@ -42,15 +42,17 @@ class Component
      */
     private $physics;
 
-    // *
-    //  * @ORM\ManyToMany(targetEntity="Bloc", inversedBy="components")
-     
-    // protected $blocs;
 
+    public function serialize() {
+        return (json_encode(['id' => $this->getId(),
+         'name' => $this->getName(),
+         'texture' => $this->getTexturePath(),
+         'physics' => $this->getPhysics()]));
+    }
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,7 +75,7 @@ class Component
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -94,7 +96,7 @@ class Component
     /**
      * Get texturePath
      *
-     * @return string 
+     * @return string
      */
     public function getTexturePath()
     {
@@ -117,40 +119,13 @@ class Component
     /**
      * Get physics
      *
-     * @return array 
+     * @return array
      */
     public function getPhysics()
     {
         return $this->physics;
     }
 
-    // public function getBlocs() {
-    //     return $this->blocs;
-    // }
-
-    /**
-     * Add blocs
-     *
-     * @param \MAM\CoreBundle\Entity\Bloc $blocs
-     * @return Components
-     */
-    // public function addBlocs(\EditorBundle\Entity\Bloc $blocs)
-    // {
-    //     $blocs->addComponents($this);
-    //     $this->blocs[] = $blocs;
-
-    //     return $this;
-    // }
-
-    /**
-     * Remove blocs
-     *
-     * @param \MAM\CoreBundle\Entity\Bloc $blocs
-     */
-    // public function removeBlocs(\EditorBundle\Entity\Bloc $blocs)
-    // {
-    //     $this->blocs->removeElement($blocs);
-    //     $blocs->removeComponents($this);
-    // }
+ 
 
 }

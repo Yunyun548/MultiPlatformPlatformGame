@@ -71,7 +71,7 @@ $(function(){
 			$.each(componentEls, function(i,e){
 				var compJson =  $(e).attr("data-comp");
 				block.components.push(
-						compJson
+						JSON.parse(compJson)
 					);
 			});
 
@@ -79,7 +79,12 @@ $(function(){
 				url: opt.postBlockUrl,
 				dataType: "json",
 				method: "POST",
-				data:JSON.stringify(block)
+				data:{
+					json_data : {
+						name : block.name,
+						components :  JSON.stringify(block.components)
+					}
+				}
 			})
 			.done(function( msg ) {
 				alert( "Data Saved: " + msg );
