@@ -57,12 +57,12 @@ class EditorController extends Controller
                 $imagePath = file_get_contents($component->getTexturePath());
                 $base64 = base64_encode($imagePath);
 
-                $component = array('id' => $component->getId(),
+                $c = array('id' => $component->getId(),
                  'name' => $component->getName(),
                  'texture' => $base64,
                  'physics' => $component->getPhysics());
 
-                array_push($components, $component);
+                array_push($components, $c);
             }
 
             $blocJson = array('id' => $bloc->getId(),
