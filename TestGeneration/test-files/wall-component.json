@@ -1,0 +1,8 @@
+﻿{
+    "id" : 2,
+    "name" : "azertyuiop",
+    "texture" : "/this/is/my/texture.png",
+    "physics" : {
+		"solid": true
+    }
+}

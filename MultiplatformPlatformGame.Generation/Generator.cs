@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
-using System.Drawing;
 
 namespace MultiplatformPlatformGame.Generation
 {
@@ -38,6 +37,11 @@ namespace MultiplatformPlatformGame.Generation
 			blocks.Add (b);
 		}
 
+		public List<Block> GetBlocks()
+		{
+			return blocks;
+		}
+
 		public void AnalyseBlocks()
 		{
 			foreach (Block b in blocks) {
@@ -49,6 +53,7 @@ namespace MultiplatformPlatformGame.Generation
 		protected void AnalyseBlock(Block b)
 		{
 			foreach (BlockComponent c in BorderNonSolidComponents(b)) {
+				
 			}
 		}
 
