@@ -49,6 +49,7 @@ class Component
          'texture' => $this->getTexturePath(),
          'physics' => $this->getPhysics()]));
     }
+
     /**
      * Get id
      *
