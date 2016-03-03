@@ -42,10 +42,10 @@ class Component
      */
     private $physics;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Bloc", inversedBy="components")
-     */
-    protected $blocs;
+    // *
+    //  * @ORM\ManyToMany(targetEntity="Bloc", inversedBy="components")
+     
+    // protected $blocs;
 
     /**
      * Get id
@@ -124,9 +124,9 @@ class Component
         return $this->physics;
     }
 
-    public function getBlocs() {
-        return $this->blocs;
-    }
+    // public function getBlocs() {
+    //     return $this->blocs;
+    // }
 
     /**
      * Add blocs
@@ -134,23 +134,23 @@ class Component
      * @param \MAM\CoreBundle\Entity\Bloc $blocs
      * @return Components
      */
-    public function addBlocs(\EditorBundle\Entity\Bloc $blocs)
-    {
-        $blocs->addComponents($this);
-        $this->blocs[] = $blocs;
+    // public function addBlocs(\EditorBundle\Entity\Bloc $blocs)
+    // {
+    //     $blocs->addComponents($this);
+    //     $this->blocs[] = $blocs;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Remove blocs
      *
      * @param \MAM\CoreBundle\Entity\Bloc $blocs
      */
-    public function removeBlocs(\EditorBundle\Entity\Bloc $blocs)
-    {
-        $this->blocs->removeElement($blocs);
-        $blocs->removeComponents($this);
-    }
+    // public function removeBlocs(\EditorBundle\Entity\Bloc $blocs)
+    // {
+    //     $this->blocs->removeElement($blocs);
+    //     $blocs->removeComponents($this);
+    // }
 
 }

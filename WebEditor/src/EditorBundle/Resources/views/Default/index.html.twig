@@ -22,6 +22,7 @@
 					<div class="row">
 						<div class="col-md-6 border-right">
 							<h5 class="mb15 pb15 f20px">Tools box</h5>
+                            {{ dump(jsonArray) }}
 							<ul class="component-container" id="block-list">
 			                    {% for c in components %}
 			                    	<li data-comp="{{ c | json_encode() }}" >
@@ -44,7 +45,7 @@
 							</ul>
 						</div>
 						<div class="col-md-6">
-							<div class="comp-property-container"> 
+							<div class="comp-property-container">
 							</div>
 						</div>
 					</div>
@@ -54,13 +55,13 @@
 			<div class="col-md-6 work-space">
 				<div class="content-container">
 					<h5 class="pb15 mb15">
-						Workspace 
-						<input type="text" class="form-control" placeholder="Nom de mon bloc">	
+						Workspace
+						<input type="text" class="form-control" placeholder="Nom de mon bloc">
 						<button id="dl-block" class="btn btn-default" disabled>Récupérer le block</button>
 					</h5>
 					<div class="block-factory">
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 	</div>
@@ -74,8 +75,8 @@
            data-post-block-url="{{ path('editor_persist_json') }}"
            data-default-json =" {{components[0] | json_encode()}}"
            data-default-src ="{{components[0].TexturePath}}",
-           data-components = "{{ jsonC }}"
+           data-components = "{{ jsonArray }}"
            >
        </script>
    </footer>
-</html>				
+</html>
