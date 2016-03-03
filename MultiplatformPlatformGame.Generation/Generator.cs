@@ -136,9 +136,9 @@ namespace MultiplatformPlatformGame.Generation
 
                 for (int j = 0; j < layout.GetLength(1); j++) {
                     if ((Opening)layout [i,j] == Opening.None) {
-                        line.Add (blocks [5]);
-                    } else {
                         line.Add (blocks [6]);
+                    } else {
+                        line.Add (blocks[_r.Next(6)]);
                     }
                 }
             }

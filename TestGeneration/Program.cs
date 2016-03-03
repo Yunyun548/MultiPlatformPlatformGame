@@ -18,8 +18,8 @@ namespace TestGeneration
             g.AddBlock(@"../../test-files/plus-block.json");
             g.AddBlock(@"../../test-files/up-right-l-block.json");
             g.AddBlock(@"../../test-files/down-right-l-block.json");
-            g.AddBlock(@"../../test-files/empty-block.json");
             g.AddBlock(@"../../test-files/full-block.json");
+            g.AddBlock(@"../../test-files/empty-block.json");
 
             g.AnalyseBlocks();
             var layout = g.GenerateLayout(15, 5);
