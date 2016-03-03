@@ -20,14 +20,13 @@
 			<div class="col-md-6 tool-box">
 				<div class="content-container">
 					<div class="row">
-						<div class="col-md-6 border-right">							
+						<div class="col-md-6 border-right">
 							<h5 class="mb15 pb15 f20px">Tools box</h5>
 							<ul class="component-container" id="block-list">
 			                    {% for c in components %}
-			                    	<li data-comp-id="{{ c.id }}">
+			                    	<li data-comp="{{ c | json_encode() }}" >
 			                        	<img src="{{ asset(c.TexturePath)}}" height="40px"> 
 			                        	{{ c.name }}
-
 			                        	<div class="comp-property">
 						                    {% for key,value in c.physics%}
 						                    <p>
@@ -73,8 +72,9 @@
        <script src="{{ asset('/js/script.js') }}"
            id="core-script"
            data-post-block-url="{{ path('editor_persist_json') }}"
-           data-default-id =" {{components[0].id}}"
-           data-default-src ="{{components[0].TexturePath}}"
+           data-default-json =" {{components[0] | json_encode()}}"
+           data-default-src ="{{components[0].TexturePath}}",
+           data-components = "{{ jsonC }}"
            >
        </script>
    </footer>

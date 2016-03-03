@@ -7,13 +7,12 @@ $(function(){
 		compPropContainer : $(".comp-property-container"),
 
 		defaultComp :{
-			id :  $("#core-script").data("default-id"),
+			json : $("#core-script").data("default-json") ,
 			src :  $("#core-script").data("default-src")
 		},
 
 		blockSideSize : 3, // u
 		componentSideSize : 150 //px
-
 	};
 
 	var init = function(){
@@ -47,7 +46,7 @@ $(function(){
 						attachComponent($(this));
 					})					
 					.append($("<img>").prop("src", opt.defaultComp.src))
-					.attr("data-comp-id", opt.defaultComp.id)
+					.attr("data-comp", opt.defaultComp.json)
 					.appendTo(opt.wsContainer);
 			};
 		};
@@ -64,20 +63,23 @@ $(function(){
 			
 
 		$("#dl-block").click(function(){
-			var components = opt.wsContainer.find(".comp");
+			var componentEls = opt.wsContainer.find(".comp");
 			var block = {
 				name : $(".work-space h5 .form-control").val(),
-				matrix : []
+				components : []
 			}
-			$.each(components, function(i,e){
-				block.matrix.push($(e).attr("data-comp-id"));
+			$.each(componentEls, function(i,e){
+				var compJson =  $(e).attr("data-comp");
+				block.components.push(
+						compJson
+					);
 			});
-			console.log(block);
+
 			$.ajax({
 				url: opt.postBlockUrl,
 				dataType: "json",
 				method: "POST",
-				data: block
+				data:JSON.stringify(block)
 			})
 			.done(function( msg ) {
 				alert( "Data Saved: " + msg );
@@ -110,7 +112,7 @@ $(function(){
 		el.find("img").remove();
 
 		el.append($("<img>").prop("src", imgEl.prop("src")));
-		el.attr("data-comp-id", selectedComponent.attr("data-comp-id"));
+		el.attr("data-comp", selectedComponent.attr("data-comp"));
 
 		if (isBlockValid()) {
 			$("#dl-block").prop("disabled", false);
@@ -126,7 +128,7 @@ $(function(){
 			result = false;
 
 		$.each(components, function(i,e){
-			 if (!$(e).attr("data-comp-id")) {
+			 if (!$(e).attr("data-comp")) {
 				result = false;
 			}
 		});
