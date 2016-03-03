@@ -2,6 +2,7 @@ $(function(){
 
 	var opt = {
 		postBlockUrl : $("#core-script").data("post-block-url"),
+		postCompUrl : $("#core-script").data("post-comp-url"),
 		wsContainer : $(".block-factory"),
 		compContainer : $(".component-container"),
 		compPropContainer : $(".comp-property-container"),
@@ -12,13 +13,19 @@ $(function(){
 		},
 
 		blockSideSize : 3, // u
-		componentSideSize : 150 //px
+		componentSideSize : 150, //px
+
+		physics : [
+			"Solide",
+			"Destructible"
+		]
 	};
 
 	var init = function(){
 		initBlockFactory();
 		initAvailableComponents();
 		initBtn();
+		initComponentFactory();
 	};
 
 	var initAvailableComponents = function(){
@@ -75,6 +82,8 @@ $(function(){
 					);
 			});
 
+				
+
 			$.ajax({
 				url: opt.postBlockUrl,
 				dataType: "json",
@@ -87,11 +96,57 @@ $(function(){
 				}
 			})
 			.done(function( msg ) {
-				alert( "Data Saved: " + msg );
+			var holder =  $(".json-block-holder");
+				$(holder.find("textarea")).val(JSON.stringify(block.components));
+				holder.show();
+
+				alert( "Data Saved !");
 			});
 
 		});	
-	}
+
+		$(".component-factory form").submit(function(e){
+	        e.preventDefault();
+	 
+            var $form = $(this);
+	        var formdata = (window.FormData) ? new FormData($form[0]) : null;
+	        var data = (formdata !== null) ? formdata : $form.serialize();
+	 
+	        $.ajax({
+	            url: $form.attr('action'),
+	            type: $form.attr('method'),
+	            contentType: false, // obligatoire pour de l'upload
+	            processData: false, // obligatoire pour de l'upload
+	            dataType: 'json', // selon le retour attendu
+	            data: data,
+	            success: function (response) {
+	                alert("data saved !")
+	            }
+	        });
+		});
+
+	};
+
+	var initComponentFactory = function(){
+		var tableEl = $(".component-factory .physics-box");
+		for (var item in opt.physics){
+			$("<div>").addClass("row")
+				.append($("<div>")
+					.addClass("col-md-1")
+					.css("text-align", "right")
+					.append($("<input>")
+						.prop("type","checkbox")
+						.prop("name",opt.physics[item])
+						.prop("value","true" )
+					)
+				)
+				.append($("<div>")
+					.addClass("col-md-10")
+					.text(opt.physics[item])
+				)
+				.appendTo(tableEl);
+		}
+	};
 
 
 	var selectComponent = function(el){
@@ -113,16 +168,18 @@ $(function(){
 
 	var attachComponent = function(el){
 		var selectedComponent = opt.compContainer.find(".selected");
-		var imgEl = selectedComponent.find("img");
-		el.find("img").remove();
+		if (selectedComponent.length == 1)
+		{
+			var imgEl = selectedComponent.find("img");
+			el.find("img").remove();
 
-		el.append($("<img>").prop("src", imgEl.prop("src")));
-		el.attr("data-comp", selectedComponent.attr("data-comp"));
+			el.append($("<img>").prop("src", imgEl.prop("src")));
+			el.attr("data-comp", selectedComponent.attr("data-comp"));
 
-		if (isBlockValid()) {
-			$("#dl-block").prop("disabled", false);
-		};
-
+			if (isBlockValid()) {
+				$("#dl-block").prop("disabled", false);
+			};
+		}
 	};
 
 	var isBlockValid = function(){
@@ -139,7 +196,6 @@ $(function(){
 		});
 		return result;
 	};
-
 
 	init();
 });
