@@ -44,5 +44,19 @@ namespace MultiplatformPlatformGame.Generation
 				counter++;
 			}
 		}
+
+		public void PrettyPrint()
+		{
+			foreach (List<BlockComponent> l in this.ComponentMatrix) {
+				foreach (BlockComponent bc in l) {
+					if (bc.Component.Solid) {
+						Console.Write ('X');
+					} else {
+						Console.Write (' ');
+					}
+				}
+				Console.WriteLine ();
+			}
+		}
 	}
 }

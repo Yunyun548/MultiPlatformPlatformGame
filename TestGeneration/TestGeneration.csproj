@@ -50,6 +50,8 @@
     <None Include="test-files\well-block.json" />
     <None Include="test-files\down-right-l-block.json" />
     <None Include="test-files\up-right-l-block.json" />
+    <None Include="test-files\full-block.json" />
+    <None Include="test-files\empty-block.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiplatformPlatformGame.Generation\MultiplatformPlatformGame.Generation.csproj">

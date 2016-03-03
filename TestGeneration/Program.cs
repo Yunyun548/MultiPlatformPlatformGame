@@ -17,9 +17,17 @@ namespace TestGeneration
 			g.AddBlock (@"../../test-files/plus-block.json");
 			g.AddBlock (@"../../test-files/up-right-l-block.json");
 			g.AddBlock (@"../../test-files/down-right-l-block.json");
+			g.AddBlock (@"../../test-files/empty-block.json");
+			g.AddBlock (@"../../test-files/full-block.json");
 
 			g.AnalyseBlocks ();
 			g.GenerateChunck ();
+
+			foreach (Block b in g.GetBlocks()) {
+				Console.WriteLine ("-----");
+				b.PrettyPrint ();
+			}
+			Console.WriteLine ("-----");
 		}
 	}
 }

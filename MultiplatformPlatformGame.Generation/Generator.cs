@@ -53,7 +53,6 @@ namespace MultiplatformPlatformGame.Generation
 		protected void AnalyseBlock(Block b)
 		{
 			foreach (BlockComponent c in BorderNonSolidComponents(b)) {
-				
 			}
 		}
 
