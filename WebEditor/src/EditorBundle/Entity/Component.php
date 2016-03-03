@@ -125,7 +125,4 @@ class Component
     {
         return $this->physics;
     }
-
- 
-
 }
