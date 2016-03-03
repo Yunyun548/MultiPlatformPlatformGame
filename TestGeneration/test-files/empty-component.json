@@ -3,10 +3,6 @@
     "name" : "azertyuiop",
     "texture" : "/this/is/my/texture.png",
     "physics" : {
-        "passable" : [
-            "left",
-            "right"
-        ],
-        "destructible": true
+		"solid": false
     }
 }

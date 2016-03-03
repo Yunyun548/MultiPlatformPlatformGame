@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace MultiplatformPlatformGame.Generation
 {
+    [DataContract]
 	public class Block
 	{
 		public Block ()
 		{
 		}
-
+        [DataMember(Name = "id")]        
 		public int Id { get; set; }
-		public String Name { get; set; }
-		public List<int> Matrix { get; set; }
-		public List<List<BlockComponent>> ComponentMatrix { get; set; }
-		public int BlockSize { get; set; }
+        [DataMember(Name = "name")]
+        public String Name { get; set; }
+        [DataMember(Name = "matrix")]
+        public List<int> Matrix { get; set; }
+
+        public List<List<BlockComponent>> ComponentMatrix { get; set; }
+        public int BlockSize { get; set; }
 
 		public void BindComponents(List<Component> components)
 		{
 			ComponentMatrix = new List<List<BlockComponent>> ();
 
-			int BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
+			BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
 			int counter = 0;
 			List<BlockComponent> row = null;
 

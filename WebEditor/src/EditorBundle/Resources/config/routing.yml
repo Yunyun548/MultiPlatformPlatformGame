@@ -5,3 +5,7 @@ editor_homepage:
 editor_persist_json:
     path:     /persist-blocs
     defaults: { _controller: EditorBundle:Editor:persistJson }
+
+editor_save_component:
+    path:     /save-component
+    defaults: { _controller: EditorBundle:Editor:saveComponent }

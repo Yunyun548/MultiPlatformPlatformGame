@@ -38,15 +38,17 @@ class EditorController extends Controller
             $em->persist($bloc);
             $em->flush();
 
+            // $zcel = $serializer->deserialize($bloc->getComponents(),'\EditorBundle\Entity\Bloc','json');
+
             $components = array();
-            foreach ($bloc->getComponents() as $component) {
-                $imagePath = file_get_contents($component->getTexturePath());
+            foreach (json_decode(json_encode($bloc->unserializeComponents()), true) as $component) {
+                $imagePath = file_get_contents($this->get('kernel')->getRootDir() . '/../web' . $component["texture"]);
                 $base64 = base64_encode($imagePath);
 
-                $c = array('id' => $component->getId(),
-                 'name' => $component->getName(),
+                $c = array('id' => $component["id"],
+                 'name' => $component["name"],
                  'texture' => $base64,
-                 'physics' => $component->getPhysics());
+                 'physics' => $component["physics"]);
 
                 array_push($components, $c);
             }

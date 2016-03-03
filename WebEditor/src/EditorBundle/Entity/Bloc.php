@@ -88,4 +88,8 @@ class Bloc
     public function getComponents() {
         return $this->components;
     }
+
+    public function unserializeComponents() {
+        return json_decode($this->components);
+    }
 }

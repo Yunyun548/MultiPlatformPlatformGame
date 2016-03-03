@@ -42,10 +42,6 @@ class Component
      */
     private $physics;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Bloc", inversedBy="components")
-     */
-    // protected $blocs;
 
     public function serialize() {
         return (json_encode(['id' => $this->getId(),
@@ -130,5 +126,4 @@ class Component
     {
         return $this->physics;
     }
-
 }
