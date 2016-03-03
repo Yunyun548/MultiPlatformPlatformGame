@@ -19,7 +19,7 @@ namespace MultiplatformPlatformGame.Generation
 		{
 			ComponentMatrix = new List<List<BlockComponent>> ();
 
-			int BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
+			BlockSize = Convert.ToInt32(Math.Sqrt (Matrix.Count));
 			int counter = 0;
 			List<BlockComponent> row = null;
 
@@ -42,20 +42,6 @@ namespace MultiplatformPlatformGame.Generation
 				}
 
 				counter++;
-			}
-		}
-
-		public void PrettyPrint()
-		{
-			foreach (List<BlockComponent> l in this.ComponentMatrix) {
-				foreach (BlockComponent bc in l) {
-					if (bc.Component.Solid) {
-						Console.Write ('X');
-					} else {
-						Console.Write (' ');
-					}
-				}
-				Console.WriteLine ();
 			}
 		}
 	}

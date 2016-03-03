@@ -81,7 +81,13 @@ namespace MultiplatformPlatformGame.Generation
             }
         }
 
-        public byte[,] GenerateChunck(int width, int height)
+        public List<List<Block>> GenerateChunck()
+        {
+            byte[,] layout = GenerateLayout (15, 5);
+            return AttributeBlocks (layout);
+        }
+
+        public byte[,] GenerateLayout(int width, int height)
         {
             // Le chunk est initialisé avec toutes les valeurs par défaut (0 -> aucune ouverture)
             // x représente les lignes, y les colonnes
@@ -118,6 +124,25 @@ namespace MultiplatformPlatformGame.Generation
                 if (currentCoord.Y == width - 1)
                     endReached = true;
             }
+            return result;
+        }
+
+        public List<List<Block>> AttributeBlocks(byte[,] layout)
+        {
+            List<List<Block>> result = new List<List<Block>> ();
+            for (int i = 0; i < layout.GetLength(0); i++) {
+                List<Block> line = new List<Block> ();
+                result.Add (line);
+
+                for (int j = 0; j < layout.GetLength(1); j++) {
+                    if ((Opening)layout [i,j] == Opening.None) {
+                        line.Add (blocks [5]);
+                    } else {
+                        line.Add (blocks [6]);
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -178,7 +203,6 @@ namespace MultiplatformPlatformGame.Generation
                     if (array[line, column] != 0)
                     {
                         Point found = new Point(line, column);
-                        Console.WriteLine("Right : {0}", found);
                         return found;
                     }
 

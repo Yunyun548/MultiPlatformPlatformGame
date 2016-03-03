@@ -18,16 +18,24 @@ namespace TestGeneration
             g.AddBlock(@"../../test-files/plus-block.json");
             g.AddBlock(@"../../test-files/up-right-l-block.json");
             g.AddBlock(@"../../test-files/down-right-l-block.json");
+            g.AddBlock(@"../../test-files/empty-block.json");
+            g.AddBlock(@"../../test-files/full-block.json");
 
             g.AnalyseBlocks();
-            var test = g.GenerateChunck(15, 5);
+            var layout = g.GenerateLayout(15, 5);
+            var level = g.AttributeBlocks(layout);
             foreach (Block b in g.GetBlocks()) {
-                Console.WriteLine ("-----");
-                b.PrettyPrint ();
+                BlockPrettyPrint (b);
             }
+
             Console.WriteLine ("-----");
 
-            Console.WriteLine(GetDisplayableLevel(test));
+            Console.WriteLine(GetDisplayableLevel(layout));
+
+            Console.WriteLine ("-----");
+
+            LevelPrettyPrint(level);
+
             Console.Read();
         }
 
@@ -94,6 +102,40 @@ namespace TestGeneration
                 }
             }
             return sb.ToString();
+        }
+            
+        public static void BlockPrettyPrint(Block block)
+        {
+            foreach (List<BlockComponent> l in block.ComponentMatrix) {
+                foreach (BlockComponent bc in l) {
+                    if (bc.Component.Solid) {
+                        Console.Write ('X');
+                    } else {
+                        Console.Write (' ');
+                    }
+                }
+                Console.WriteLine ();
+            }
+        }
+
+        public static void LevelPrettyPrint(List<List<Block>> level)
+        {
+            int blockSize = level [0] [0].BlockSize;
+
+            foreach (List<Block> bl in level) {
+                for (int i = 0; i < blockSize; i++) {
+                    foreach (Block b in bl) {
+                        foreach (BlockComponent bc in b.ComponentMatrix[i]) {
+                            if (bc.Component.Solid) {
+                                Console.Write ('X');
+                            } else {
+                                Console.Write (' ');
+                            }
+                        }
+                    }
+                    Console.WriteLine ();
+                }
+            }
         }
     }
 }
