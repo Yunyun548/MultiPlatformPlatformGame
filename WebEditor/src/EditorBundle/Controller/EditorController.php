@@ -18,9 +18,7 @@ class EditorController extends Controller
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
-
         $components = $em->getRepository('EditorBundle:Component')->findAll();
-
         return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
     }
 
@@ -71,9 +69,9 @@ class EditorController extends Controller
 
     /* Save a new Component
      * Parameters
-     *
-     *
-     *
+     * image : File image
+     * name : String
+     * physics : Array
     */
     public function saveComponentAction(Request $request) {
 
@@ -83,6 +81,18 @@ class EditorController extends Controller
         if (!is_null($json_data)) {
             //
             file_put_contents($file, $current);
+
+            $component = new Component;
+            $component->setName($json_data->getName());
+            $component->setTexturePath($json_data->getTexturePath());
+            $component->setPhysics($json_data->getPhysics());
+
+            $em->persist($component);
+            $em->flush();
+
+            $a = array('status' => 'ok', 'message' => 'Poireau');
+            $json = json_encode($a);
+            return new JsonResponse($json);
         }
 
         else {

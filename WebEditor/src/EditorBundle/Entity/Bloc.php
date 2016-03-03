@@ -29,14 +29,16 @@ class Bloc
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Component", mappedBy="bloc")
+     * @var string
+     *
+     * @ORM\Column(name="components", type="string", unique=true)
      */
     private $components;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -59,7 +61,7 @@ class Bloc
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -67,32 +69,23 @@ class Bloc
     }
 
     /**
-     * Add components
+     * Set components
      *
-     * @param \MAM\CoreBundle\Entity\Component $components
-     * @return Bloc
+     * @param string $components
+     * @return string
      */
-    public function addComponents(\EditorBundle\Entity\Component $components)
-    {
-        $components->addBlocs($this);
-        $this->components[] = $components;
+    public function setComponents($components) {
+        $this->components = $components;
 
         return $this;
     }
 
     /**
-     * Remove components
-     *
-     * @param \MAM\CoreBundle\Entity\Component $components
-     */
-    public function removeComponents(\EditorBundle\Entity\Component $components)
-    {
-        $this->components->removeElement($components);
-        $components->removeBlocs($this);
-    }
-
+    * Get components
+    *
+    * @return string
+    */
     public function getComponents() {
         return $this->components;
     }
-
 }

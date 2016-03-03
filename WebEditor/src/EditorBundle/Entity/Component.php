@@ -131,33 +131,4 @@ class Component
         return $this->physics;
     }
 
-    // public function getBlocs() {
-    //     return $this->blocs;
-    // }
-
-    /**
-     * Add blocs
-     *
-     * @param \MAM\CoreBundle\Entity\Bloc $blocs
-     * @return Components
-     */
-    // public function addBlocs(\EditorBundle\Entity\Bloc $blocs)
-    // {
-    //     $blocs->addComponents($this);
-    //     $this->blocs[] = $blocs;
-    //
-    //     return $this;
-    // }
-
-    /**
-     * Remove blocs
-     *
-     * @param \MAM\CoreBundle\Entity\Bloc $blocs
-     */
-    // public function removeBlocs(\EditorBundle\Entity\Bloc $blocs)
-    // {
-    //     $this->blocs->removeElement($blocs);
-    //     $blocs->removeComponents($this);
-    // }
-
 }
