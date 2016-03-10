@@ -19,7 +19,7 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Models
 
         public Component()
         {
-
+            this.Physics = new Physic();
         }
 
         public Component(int id, string name, string texturePath, string physics)

@@ -96,10 +96,6 @@
                 }
             })
 			.done(function (msg) {
-			    var holder = $(".json-block-holder");
-			    $(holder.find("textarea")).val(JSON.stringify(block.components));
-			    holder.show();
-
 			    var data = msg.data;
                 if(data.success == true)
                     alert("Data Saved !");

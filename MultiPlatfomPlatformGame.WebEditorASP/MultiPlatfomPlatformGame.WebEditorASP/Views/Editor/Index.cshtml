@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MultiPlatfomPlatformGame.WebEditorASP.Models.Component>
+﻿@model MultiPlatfomPlatformGame.WebEditorASP.Models.Component
 
 <div class="content body-container">
     <div class="row">
@@ -9,33 +9,82 @@
             </div>
         </div>
 
-        <div class="col-md-6 tool-box">
-            <div class="content-container">
-                <div class="row">
-                    <div class="col-md-6 border-right">
-                        <h5 class="mb15 pb15 f20px">Tools box</h5>
-                        <ul class="component-container" id="block-list">
-                            @foreach (MultiPlatfomPlatformGame.WebEditorASP.Models.Component item in Model)
-                            {
-                                <li data-comp-id="@item.Id">
-                                    <img src="@Url.Content("~/Content" + item.TexturePath)" height="40px">
-                                    @item.Name.ToString()
+        <div class="col-md-6">
 
-                                    <div class="comp-property">
-                                        @foreach (var property in item.Physics.GetType().GetProperties())
-                                        {
-                                            <p>
-                                                <span>@property.Name : </span> @property.GetValue(item.Physics, null)
-                                            </p>
-                                        }
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+            <div class="component-factory">
+                <div class="content-container">
+                    <h5 class="pb15 mb15">
+                        Créer un composants
+                    </h5>
+                    <div class="">
+
+                        <!--@using (Html.BeginForm("PostComponent", "Editor", FormMethod.Post, new { role = "form" , enctype = "multipart/form-data", id = "my_form" }))
+                        {
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                @Html.TextBoxFor(Model => Model.Name, new { id= "name", placeholder = "name" })
+                            </div>
+                        }-->
+
+
+                        <!--<form role="form" id="my_form" method="post" action="@Url.Action("PostComponent","Editor")" enctype="multipart/form-data">-->
+@using (Html.BeginForm("PostComponent", "Editor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+                            <div class="form-group">
+                                <label for="name">Nom</label>
+                                <input type="text" name="name" class="form-control" placeholder="nom" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="img">File input</label>
+                                <input type="file" name="TexturePath" />
+                            </div>
+
+
+foreach (var property in Model.Physics.GetType().GetProperties())
+{
+        <div class="form-control">
+            <label>@property.Name</label>
+            @Html.CheckBox(property.Name, property.GetValue(Model.Physics))
+        </div>
+}
+
+
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+}
+                       <!-- </form>-->
                     </div>
+                </div>
+            </div>
 
-                    <div class="col-md-6">
-                        <div class="comp-property-container">
+            <div class="tool-box">
+                <div class="content-container">
+                    <div class="row">
+                        <div class="col-md-6 border-right">
+                            <h5 class="mb15 pb15 f20px">Tools box</h5>
+                            <ul class="component-container" id="block-list">
+                                @foreach (MultiPlatfomPlatformGame.WebEditorASP.Models.Component item in ViewBag.components)
+                                {
+                                    <li data-comp-id="@item.Id">
+                                        <img src="@Url.Content("~/Content" + item.TexturePath)" height="40px">
+                                        @item.Name.ToString()
+
+                                        <div class="comp-property">
+                                            @foreach (var property in item.Physics.GetType().GetProperties())
+                                            {
+                                                <p>
+                                                    <span>@property.Name : </span> @property.GetValue(item.Physics, null)
+                                                </p>
+                                            }
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="comp-property-container">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,40 +94,16 @@
         <div class="col-md-6 work-space">
             <div class="content-container">
                 <h5 class="pb15 mb15">
-                    Workspace
+                    Workspace<br />
                     <input type="text" class="form-control" placeholder="Nom de mon bloc">
                     <button id="dl-block" class="btn btn-default" disabled>Récupérer le block</button>
                 </h5>
                 <div class="block-factory">
                 </div>
-                <div class="json-block-holder">
-                    <textarea rows="2"></textarea>
-                </div>
             </div>
         </div>
 
-        <div class="col-md-6 component-factory">
-            <div class="content-container">
-                <h5 class="pb15 mb15">
-                    Créer un composants
-                </h5>
-                <div class="">
-                    <form id="my_form" method="post" action="{{ path('editor_save_component') }}" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="name">Nom</label>
-                            <input type="text" name="name" class="form-control" placeholder="nom">
-                        </div>
-                        <div class="form-group">
-                            <label for="img">File input</label>
-                            <input type="file" name="img">
-                        </div>
-                        <div class="physics-box">
-                        </div>
-                        <button type="submit">OK</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 
@@ -88,7 +113,7 @@
     <script type="text/javascript" src="@Url.Content("/Scripts/script-editor.js")"
             id="core-script" ;
             data-post-block-url="@Url.Action("PersistJson", "Editor").ToString()"
-            data-default-json="@Model.ElementAt(0).Serialize()"
-            data-default-src="@Url.Content("~/Content" + Model.ElementAt(0).TexturePath).ToString()">
+            data-default-json="@ViewBag.components[0].Serialize()"
+            data-default-src="@Url.Content("~/Content" + ViewBag.components[0].TexturePath).ToString()">
     </script>
 }
