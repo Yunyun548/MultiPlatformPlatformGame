@@ -95,9 +95,9 @@ class EditorController extends Controller
 
             $component = new Component;
             $component->setName($Name);
-            $component->setTexturePath('/img/tiles/' . json_decode($Name) . ".png");
+            $component->setTexturePath('/img/tiles/' . $Name . ".png");
             $physics = array('solid' => true, 'destructible' =>false);
-            $component->setPhysics(json_encode($physics));
+            $component->setPhysics($physics);
 
             $em->persist($component);
             $em->flush();
