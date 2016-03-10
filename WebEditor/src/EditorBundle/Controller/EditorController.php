@@ -22,6 +22,11 @@ class EditorController extends Controller
         return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
     }
 
+    /* Save a bloc
+     * Parameters
+     * Array Components
+     * String Name 
+     */
     public function persistJsonAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
@@ -78,21 +83,30 @@ class EditorController extends Controller
     public function saveComponentAction(Request $request) {
 
         $em = $this->get('doctrine.orm.entity_manager');
-        $json_data = $request->request->get('json_data');
+        $Name = $request->request->get('name');
+        $jsonPhysics = json_encode($request->request->get('physics'));
 
-        if (!is_null($json_data)) {
-            //
-            file_put_contents($file, $current);
+        $filepath = $this->get('kernel')->getRootDir() . '/../web/img/tiles/' . $Name . '.png';
+        $imageData=$_FILES['img'];
+
+        if (!is_null($Name) && !is_null($jsonPhysics) && !is_null($imageData)) {
+
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $filepath)) {
+                $a = array('status' => 'ok', 'message' => 'Composant enregistré !');
+            }
+            else {
+                $a = array('status' => 'error', 'message' => 'Impossible d\'enregistrer l\'image');
+            }
 
             $component = new Component;
-            $component->setName($json_data->getName());
-            $component->setTexturePath($json_data->getTexturePath());
-            $component->setPhysics($json_data->getPhysics());
+            $component->setName($Name);
+            $component->setTexturePath('/img/tiles/' . $Name . ".png");
+            $physics = array('solid' => true, 'destructible' =>false);
+            $component->setPhysics($physics);
 
             $em->persist($component);
             $em->flush();
 
-            $a = array('status' => 'ok', 'message' => 'Poireau');
             $json = json_encode($a);
             return new JsonResponse($json);
         }

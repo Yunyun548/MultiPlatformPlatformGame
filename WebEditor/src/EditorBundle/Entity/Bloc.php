@@ -29,9 +29,9 @@ class Bloc
     private $name;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="components", type="string", unique=true)
+     * @ORM\Column(name="components", type="json_array")
      */
     private $components;
 
@@ -61,7 +61,7 @@ class Bloc
     /**
      * Get name
      *
-     * @return string
+     * @return array
      */
     public function getName()
     {
@@ -71,8 +71,8 @@ class Bloc
     /**
      * Set components
      *
-     * @param string $components
-     * @return string
+     * @param array $components
+     * @return Bloc
      */
     public function setComponents($components) {
         $this->components = $components;

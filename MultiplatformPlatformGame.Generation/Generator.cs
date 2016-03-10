@@ -13,12 +13,14 @@ namespace MultiplatformPlatformGame.Generation
 
         private List<Component> components;
         private List<Block> blocks;
+        private Dictionary<Opening, HashSet<Block>> connections;
 
         public Generator ()
         {
             this._r = new Random(DateTime.Now.Millisecond);
             components = new List<Component>();
             blocks = new List<Block>();
+            connections = new Dictionary<Opening, HashSet<Block>> ();
         }
 
         public void AddComponent(String filePath)
@@ -51,16 +53,34 @@ namespace MultiplatformPlatformGame.Generation
 
         protected void AnalyseBlock(Block b)
         {
-            foreach (BlockComponent c in BorderNonSolidComponents(b))
-            {
+            Opening opening = Opening.None;
+
+            foreach (BlockComponent c in BorderNonSolidComponents(b)) {
+                if (c.X == 0) {
+                    opening |= Opening.Up;
+                }
+                if (c.X == b.BlockSize - 1) {
+                    opening |= Opening.Down;
+                }
+                if (c.Y == 0) {
+                    opening |= Opening.Left;
+                }
+                if (c.Y == b.BlockSize - 1) {
+                    opening |= Opening.Right;
+                }
             }
+
+            if (!connections.ContainsKey (opening)) {
+                connections [opening] = new HashSet<Block> ();
+            }
+            connections [opening].Add (b);
         }
 
         protected IEnumerable<BlockComponent> BorderComponents(Block b)
         {
             for (int i = 0; i < b.BlockSize; i++)
             {
-                if (i == 0 || i == b.BlockSize)
+                if (i == 0 || i == b.BlockSize - 1)
                 {
                     foreach (BlockComponent c in b.ComponentMatrix[i])
                     {
@@ -139,10 +159,12 @@ namespace MultiplatformPlatformGame.Generation
                 result.Add (line);
 
                 for (int j = 0; j < layout.GetLength(1); j++) {
-                    if ((Opening)layout [i,j] == Opening.None) {
-                        line.Add (blocks [6]);
-                    } else {
-                        line.Add (blocks[_r.Next(6)]);
+                    try {
+                        HashSet<Block> possibilities = connections[(Opening) layout[i, j]];
+                        line.Add (possibilities.ElementAt (_r.Next (possibilities.Count)));
+                    } catch(Exception) {
+                        HashSet<Block> possibilities = connections[Opening.All];
+                        line.Add (possibilities.ElementAt (_r.Next (possibilities.Count)));
                     }
                 }
             }
@@ -248,7 +270,8 @@ namespace MultiplatformPlatformGame.Generation
         Up = 1,
         Right = 2,
         Down = 4,
-        Left = 8
+        Left = 8,
+        All = 15
     }
 }
 

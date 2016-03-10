@@ -51,7 +51,7 @@ $(function(){
 					.css("height", opt.componentSideSize)
 					.click(function(){
 						attachComponent($(this));
-					})					
+					})
 					.append($("<img>").prop("src", opt.defaultComp.src))
 					.attr("data-comp", opt.defaultComp.json)
 					.appendTo(opt.wsContainer);
@@ -62,12 +62,12 @@ $(function(){
 	var initBtn = function(){
 
 		$(".work-space h5 .form-control").keypress(function(){
-			
+
 			if (isBlockValid()) {
 				$("#dl-block").prop("disabled", false);
 			};
 		})
-			
+
 
 		$("#dl-block").click(function(){
 			var componentEls = opt.wsContainer.find(".comp");
@@ -82,7 +82,7 @@ $(function(){
 					);
 			});
 
-				
+
 
 			$.ajax({
 				url: opt.postBlockUrl,
@@ -96,22 +96,22 @@ $(function(){
 				}
 			})
 			.done(function( msg ) {
-			var holder =  $(".json-block-holder");
-				$(holder.find("textarea")).val(JSON.stringify(block.components));
+				var holder =  $(".json-block-holder");
+				$(holder.find("textarea")).val(msg);
 				holder.show();
 
 				alert( "Data Saved !");
 			});
 
-		});	
+		});
 
 		$(".component-factory form").submit(function(e){
 	        e.preventDefault();
-	 
+
             var $form = $(this);
 	        var formdata = (window.FormData) ? new FormData($form[0]) : null;
 	        var data = (formdata !== null) ? formdata : $form.serialize();
-	 
+
 	        $.ajax({
 	            url: $form.attr('action'),
 	            type: $form.attr('method'),
@@ -120,7 +120,7 @@ $(function(){
 	            dataType: 'json', // selon le retour attendu
 	            data: data,
 	            success: function (response) {
-	                alert("data saved !")
+	                console.log(response);
 	            }
 	        });
 		});
@@ -136,8 +136,8 @@ $(function(){
 					.css("text-align", "right")
 					.append($("<input>")
 						.prop("type","checkbox")
-						.prop("name",opt.physics[item])
-						.prop("value","true" )
+						.prop("name","physics")
+					    .prop("value",opt.physics[item] )
 					)
 				)
 				.append($("<div>")
@@ -154,7 +154,7 @@ $(function(){
 
 		opt.compPropContainer.empty();
 
-		if (el.hasClass(selClass)) 
+		if (el.hasClass(selClass))
 			el.removeClass(selClass);
 		else{
 			opt.compContainer.find("li").removeClass(selClass);
@@ -185,7 +185,7 @@ $(function(){
 	var isBlockValid = function(){
 		var result = true;
 		var components = opt.wsContainer.find(".comp");
-		
+
 		if(!$(".work-space h5 .form-control").val())
 			result = false;
 
