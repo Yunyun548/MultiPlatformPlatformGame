@@ -78,21 +78,30 @@ class EditorController extends Controller
     public function saveComponentAction(Request $request) {
 
         $em = $this->get('doctrine.orm.entity_manager');
-        $json_data = $request->request->get('json_data');
+        $Name = $request->request->get('name');
+        $jsonPhysics = json_encode($request->request->get('physics'));
 
-        if (!is_null($json_data)) {
-            //
-            file_put_contents($file, $current);
+        $filepath = $this->get('kernel')->getRootDir() . '/../web/img/tiles/' . $Name . '.png';
+        $imageData=$_FILES['img'];
+
+        if (!is_null($Name) && !is_null($jsonPhysics) && !is_null($imageData)) {
+
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $filepath)) {
+                $a = array('status' => 'ok', 'message' => 'Composant enregistré !');
+            }
+            else {
+                $a = array('status' => 'error', 'message' => 'Impossible d\'enregistrer l\'image');
+            }
 
             $component = new Component;
-            $component->setName($json_data->getName());
-            $component->setTexturePath($json_data->getTexturePath());
-            $component->setPhysics($json_data->getPhysics());
+            $component->setName($Name);
+            $component->setTexturePath('/img/tiles/' . json_decode($Name) . ".png");
+            $physics = array('solid' => true, 'destructible' =>false);
+            $component->setPhysics(json_encode($physics));
 
             $em->persist($component);
             $em->flush();
 
-            $a = array('status' => 'ok', 'message' => 'Poireau');
             $json = json_encode($a);
             return new JsonResponse($json);
         }
