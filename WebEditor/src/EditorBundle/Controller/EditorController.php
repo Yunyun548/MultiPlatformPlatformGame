@@ -22,6 +22,11 @@ class EditorController extends Controller
         return $this->render('EditorBundle:Default:index.html.twig', array('components' => $components));
     }
 
+    /* Save a bloc
+     * Parameters
+     * Array Components
+     * String Name 
+     */
     public function persistJsonAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
