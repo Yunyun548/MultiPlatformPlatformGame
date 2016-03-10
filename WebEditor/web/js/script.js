@@ -96,7 +96,7 @@ $(function(){
 				}
 			})
 			.done(function( msg ) {
-			var holder =  $(".json-block-holder");
+				var holder =  $(".json-block-holder");
 				$(holder.find("textarea")).val(JSON.stringify(block.components));
 				holder.show();
 
