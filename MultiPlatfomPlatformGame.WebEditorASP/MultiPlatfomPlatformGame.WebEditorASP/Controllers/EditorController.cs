@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
+using MultiPlatfomPlatformGame.WebEditorASP.Models;
 
 namespace MultiPlatfomPlatformGame.WebEditorASP.Controllers
 {
@@ -16,7 +17,7 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Controllers
         // GET: Editor
         public ActionResult Index()
         {
-            IList<Models.Component> collection = new List<Models.Component>();
+            IList<Component> collection = new List<Component>();
 
             using(this._connexion = new MySqlConnection(this._connectionString))
             {
@@ -29,7 +30,7 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Controllers
                     {
                         while (reader.Read())
                         {
-                            collection.Add(new Models.Component(
+                            collection.Add(new Component(
                                 reader.GetInt32(0),
                                 reader.GetString(1),
                                 reader.GetString(2),
@@ -43,9 +44,57 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Controllers
             return View(collection);
         }
 
-        public JsonResult PersistJson()
+        [HttpPost]
+        public JsonResult PersistJson(NewBlockAjax data)
         {
-            return new JsonResult();
+            bool success = true;
+            string errors = String.Empty;
+            try
+            {
+                // Deserialisation de l'objet
+                Block newBlock = new Block().BlockDeserilizer(data.Json_Data);
+
+                using (this._connexion = new MySqlConnection(this._connectionString))
+                {
+                    using (MySqlCommand commande = _connexion.CreateCommand())
+                    {
+                        // Generation de la requete
+                        commande.CommandText = "INSERT INTO bloc (name, components) VALUE (?name, ?components)";
+                        commande.Parameters.AddWithValue("?name", newBlock.Name);
+                        commande.Parameters.AddWithValue("?components", newBlock.Components);
+
+                        //Envois
+                        _connexion.Open();
+                        commande.ExecuteNonQuery();
+                        _connexion.Clone();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                errors = ex.Message;
+            }
+
+            return Json(new
+            {
+                data = new
+                {
+                    success = success,
+                    errors = errors,
+                }
+            });
         }
+    }
+
+
+    public class NewBlockAjax
+    {
+        public NewBlockAjax()
+        {
+
+        }
+
+        public string Json_Data { get; set; }
     }
 }

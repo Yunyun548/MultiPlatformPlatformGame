@@ -8,10 +8,15 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Models
 {
     public class Component
     {
+        [JsonProperty("Id")]
         public int Id { get; set; }
+        [JsonProperty("Name")]
         public String Name { get; set; }
+        [JsonProperty("TexturePath")]
         public String TexturePath { get; set; }
-        public Properties Physics { get; set; }
+        [JsonProperty("Physics")]
+        public Physic Physics { get; set; }
+
         public Component()
         {
 
@@ -22,7 +27,12 @@ namespace MultiPlatfomPlatformGame.WebEditorASP.Models
             this.Id = id;
             this.Name = name;
             this.TexturePath = texturePath;
-            this.Physics = JsonConvert.DeserializeObject<Properties>(physics);
+            this.Physics = JsonConvert.DeserializeObject<Physic>(physics);
         }
+
+        public string Serialize()
+        {           
+            return JsonConvert.SerializeObject(this);
+        } 
     }
 }
