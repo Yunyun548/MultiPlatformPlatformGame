@@ -11,7 +11,7 @@ namespace TestGeneration
     {
         public static void Main(string[] args)
         {
-            Generator g = new Generator(4, 4);
+            Generator g = new Generator(4, 3);
             g.AddComponent(@"../../test-files/empty-component.json");
             g.AddComponent(@"../../test-files/wall-component.json");
             g.AddBlock(@"../../test-files/corridor-block.json");
@@ -22,12 +22,12 @@ namespace TestGeneration
             g.AddBlock(@"../../test-files/full-block.json");
             g.AddBlock(@"../../test-files/empty-block.json");
 
-            TestChunkGeneration(g, 15, 5, 4, 4, 1);
+            TestChunkGeneration(g, 10, 3, 2);
 
             Console.Read();
         }
 
-        public static void TestChunkGeneration(Generator gen, int chunkWidth, int chunkHeight, int blockWidth, int blockHeight, int chunkNb)
+        public static void TestChunkGeneration(Generator gen, int chunkWidth, int chunkHeight, int chunkNb)
         {
             Chunk lastChunk = null;
             for (int i = 0; i < chunkNb; i++)
@@ -51,9 +51,6 @@ namespace TestGeneration
                             speed = true;
                     }
                 });
-
-                //var chunk = gen.GenerateChunk(op);
-                //Console.WriteLine(gen.GetDisplayableChunk(chunk));
 
                 lastChunk = chunk;
             }
