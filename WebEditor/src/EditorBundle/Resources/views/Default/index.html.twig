@@ -9,7 +9,6 @@
        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
    </head>
    <body>
-</body>
 	<div class="content body-container">
 		<div class="row">
 			<div class="col-md-12">
@@ -60,6 +59,32 @@
 					</h5>
 					<div class="block-factory">
 					</div>
+					<div class="json-block-holder">
+						<textarea rows="2"></textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 component-factory">
+				<div class="content-container">
+					<h5 class="pb15 mb15">
+						Créer un composants
+					</h5>
+					<div class="">
+						<form id="my_form" method="post" action="{{ path('editor_save_component') }}" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="name">Nom</label>
+								<input id="inputName" type="text" name="name" class="form-control" placeholder="nom">
+							</div>
+							<div class="form-group">
+								<label for="img">File input</label>
+								<input id="inputFile" type="file" name="img">
+							</div>
+							<div class="physics-box">
+							</div>
+						    <button type="submit">OK</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -72,9 +97,11 @@
        <script src="{{ asset('/js/script.js') }}"
            id="core-script"
            data-post-block-url="{{ path('editor_persist_json') }}"
+           data-post-comp-url="{{ path('editor_save_component') }}"
            data-default-json =" {{components[0].serialize()}}"
            data-default-src ="{{components[0].TexturePath}}"
            >
        </script>
    </footer>
+</body>
 </html>

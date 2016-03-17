@@ -1,3 +1,5 @@
+﻿body {
+}
 
 body {
 	background-color: #f3f3f3;
@@ -84,11 +86,4 @@ body {
 .block-factory .comp img{
 	width: 100%;
 	height: 100%;
-}
-
-.json-block-holder{
-	display: none;
-}
-.json-block-holder textarea{
-	width: 100%;
 }
