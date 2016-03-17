@@ -35,6 +35,7 @@
             selectComponent($(this));
         });
     };
+
     var initBlockFactory = function () {
         // +10 pour le margin
         var blockFactorySideSize = (opt.componentSideSize + 10) * opt.blockSideSize;
@@ -146,7 +147,6 @@
 				.appendTo(tableEl);
         }
     };
-
 
     var selectComponent = function (el) {
         var selClass = "selected";
