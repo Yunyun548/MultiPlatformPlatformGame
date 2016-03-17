@@ -22,7 +22,7 @@ namespace TestGeneration
             g.AddBlock(@"../../test-files/full-block.json");
             g.AddBlock(@"../../test-files/empty-block.json");
 
-            TestChunkGeneration(g, 15, 5, 4, 4, 2);
+            TestChunkGeneration(g, 15, 5, 4, 4, 1);
 
             Console.Read();
         }
@@ -39,7 +39,7 @@ namespace TestGeneration
                     LastChunk = lastChunk,
                     OpenEnd = i < chunkNb - 1
                 };
-
+                
                 bool speed = false;
                 var chunk = gen.GenerateChunk(op, str =>
                 {
@@ -51,6 +51,10 @@ namespace TestGeneration
                             speed = true;
                     }
                 });
+
+                //var chunk = gen.GenerateChunk(op);
+                //Console.WriteLine(gen.GetDisplayableChunk(chunk));
+
                 lastChunk = chunk;
             }
         }

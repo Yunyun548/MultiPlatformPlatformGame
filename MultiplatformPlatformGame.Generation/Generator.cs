@@ -260,10 +260,13 @@ namespace MultiplatformPlatformGame.Generation
 
                 // analyse de la faisabilité du tirage et initialisation des case adjacentes
                 // 4 tests minimum
-                this.CheckOpening(path, currentCoord, Opening.Up, toTreat);
-                this.CheckOpening(path, currentCoord, Opening.Right, toTreat);
-                this.CheckOpening(path, currentCoord, Opening.Down, toTreat);
-                this.CheckOpening(path, currentCoord, Opening.Left, toTreat);
+                do
+                {
+                    this.CheckOpening(path, currentCoord, Opening.Up, toTreat);
+                    this.CheckOpening(path, currentCoord, Opening.Right, toTreat);
+                    this.CheckOpening(path, currentCoord, Opening.Down, toTreat);
+                    this.CheckOpening(path, currentCoord, Opening.Left, toTreat);
+                } while (path[currentCoord.X, currentCoord.Y] == Opening.None);                
 
                 if (currentCoord.Y == options.ChunkWidth - 1)
                     endReached = true;
@@ -285,7 +288,7 @@ namespace MultiplatformPlatformGame.Generation
             if (demoMode != null)
                 demoMode(this.GetDisplayablePath(path));
 
-            return result;
+             return result;
         }
         private void CheckOpening(Opening[,] array, Point currentCoord, Opening direction, Queue<Point> toTreat)
         {
@@ -502,7 +505,7 @@ namespace MultiplatformPlatformGame.Generation
                         demoMode(this.GetDisplayableAddBlock(result));
                 }
             }
-
+            
             return result;
         }
 
