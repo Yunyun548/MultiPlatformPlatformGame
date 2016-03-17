@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MultiplatformPlatformGame.Generation
+namespace MultiplatformPlatformGame.Generation.Models
 {
-	public class Point
+	public struct Point
 	{
 		public Point (int x, int y)
 		{

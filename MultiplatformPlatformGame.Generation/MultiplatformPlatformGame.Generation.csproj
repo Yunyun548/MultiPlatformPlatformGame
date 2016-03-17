@@ -42,12 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AddBlock.cs" />
+    <Compile Include="Models\Chunk.cs" />
+    <Compile Include="Models\GeneratorOptions.cs" />
+    <Compile Include="Models\Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Component.cs" />
-    <Compile Include="Block.cs" />
+    <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Block.cs" />
     <Compile Include="Generator.cs" />
-    <Compile Include="BlockComponent.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Models\Point.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
