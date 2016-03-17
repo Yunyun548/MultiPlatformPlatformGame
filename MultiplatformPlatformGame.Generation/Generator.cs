@@ -33,7 +33,7 @@ namespace MultiplatformPlatformGame.Generation
         }
 
         // génération de tous les blocs nécessaires et analyse de blocks
-        public IEnumerable<Block> GenerateAllBlocks()
+        private IEnumerable<Block> GenerateAllBlocks()
         {
             List<Block> blocks = new List<Block>();
 
@@ -90,7 +90,7 @@ namespace MultiplatformPlatformGame.Generation
             }
             return blocks;
         }
-        public IEnumerable<BlockOpening> AnalyseBlock(Block block)
+        private IEnumerable<BlockOpening> AnalyseBlock(Block block)
         {
             List<BlockOpening> openings = new List<BlockOpening>();
 
@@ -151,12 +151,12 @@ namespace MultiplatformPlatformGame.Generation
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Chunk GenerateChunk(GeneratorOptions options)
+        public Chunk GenerateChunk(GeneratorOptions options, Action<string> demoMode = null)
         {
             Chunk chunk = new Chunk();
 
             // Génération du path
-            PathModel path = this.GeneratePath(options);
+            PathModel path = this.GeneratePath(options, demoMode);
 
             chunk.StartBlock = path.StartLine;
             chunk.EndBlock = path.EndLine;
@@ -195,7 +195,7 @@ namespace MultiplatformPlatformGame.Generation
                 this._closedBlocks = closedBlocks;
             }
 
-            var addModel = this.AddBlockOnPath(path, lastChunkEndComponents);
+            var addModel = this.AddBlocksOnPath(path, lastChunkEndComponents, demoMode);
 
             chunk.Blocks = addModel.Blocks;
             if (options.LastChunk == null)
@@ -204,11 +204,17 @@ namespace MultiplatformPlatformGame.Generation
             if (options.OpenEnd)
                 chunk.EndComponents = addModel.EndPoints;
 
+            if (demoMode !=null)
+            {
+                demoMode(this.GetDisplayablePath(path.Openings));
+                demoMode(this.GetDisplayableChunk(chunk));
+            }
+
             return chunk;
         }
 
         // génértion du path
-        public PathModel GeneratePath(GeneratorOptions options)
+        private PathModel GeneratePath(GeneratorOptions options, Action<string> demoMode)
         {
             PathModel result = new PathModel();
 
@@ -261,6 +267,9 @@ namespace MultiplatformPlatformGame.Generation
 
                 if (currentCoord.Y == options.ChunkWidth - 1)
                     endReached = true;
+
+                if (demoMode != null)
+                    demoMode(this.GetDisplayablePath(path, currentCoord));
             }
 
             int endDepth = this.GetRandomLineInColumn(path, options.ChunkWidth - 1);
@@ -272,6 +281,9 @@ namespace MultiplatformPlatformGame.Generation
             }
 
             result.Openings = path;
+
+            if (demoMode != null)
+                demoMode(this.GetDisplayablePath(path));
 
             return result;
         }
@@ -353,7 +365,7 @@ namespace MultiplatformPlatformGame.Generation
         }
 
         // ajout des blocks sur le path
-        public AddBlock AddBlockOnPath(PathModel path, IEnumerable<int> lastChunkEndCoponents)
+        private AddBlock AddBlocksOnPath(PathModel path, IEnumerable<int> lastChunkEndCoponents, Action<string> demoMode)
         {
             AddBlock result = new AddBlock();
 
@@ -486,6 +498,8 @@ namespace MultiplatformPlatformGame.Generation
                         var selectedBlock = this._allOpenings[randomOpening];
                         result.Blocks[line, column] = selectedBlock;
                     }
+                    if (demoMode != null)
+                        demoMode(this.GetDisplayableAddBlock(result));
                 }
             }
 
@@ -497,12 +511,14 @@ namespace MultiplatformPlatformGame.Generation
         {
             return this.GetDisplayableEndLevel(chunk.Blocks, chunk.StartBlock, chunk.StartComponent);
         }
-        public string GetDisplayableAddBlock(AddBlock addBlock)
+
+        private string GetDisplayableAddBlock(AddBlock addBlock)
         {
             var blocks = addBlock.Blocks;
             return this.GetDisplayableEndLevel(blocks);
         }
-        public string GetDisplayableBlock(Block block)
+
+        private string GetDisplayableBlock(Block block)
         {
             StringBuilder sb = new StringBuilder();
             for (int line = 0; line < this._blockHeight; line++)
@@ -525,17 +541,17 @@ namespace MultiplatformPlatformGame.Generation
             }
             return sb.ToString();
         }
-        public string GetDisplayablePath(PathModel path, Point? current = null)
+
+        private string GetDisplayablePath(Opening[,] path, Point? current = null)
         {
-            var array = path.Openings;
             StringBuilder sb = new StringBuilder();
-            for (int line = 0; line < array.GetLength(0); line++)
+            for (int line = 0; line < path.GetLength(0); line++)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    for (int column = 0; column < array.GetLength(1); column++)
+                    for (int column = 0; column < path.GetLength(1); column++)
                     {
-                        Opening currentOpening = array[line, column];
+                        Opening currentOpening = path[line, column];
                         if (currentOpening == Opening.None)
                         {
                             sb.Append("XXX");
@@ -595,6 +611,7 @@ namespace MultiplatformPlatformGame.Generation
             }
             return sb.ToString();
         }
+
         private string GetDisplayableEndLevel(Block[,] array, int? startLine = null, Point? start = null)
         {
             StringBuilder sb = new StringBuilder();
@@ -610,18 +627,25 @@ namespace MultiplatformPlatformGame.Generation
                         for (int width = 0; width < this._blockWidth; width++)
                         {
                             var block = array[line, column];
-                            bool solid = block.Components[height, width].Physics.Solid;
-                            if (!solid)
+                            if(block == null)
                             {
-                                if (startLine.HasValue && startLine.Value == line
-                                    && column == 0
-                                    && start.HasValue && start.Value.X == height && start.Value.Y == width)
-                                    sb.Append("o");
-                                else
-                                    sb.Append(" ");
+                                sb.Append("X");
                             }
                             else
-                                sb.Append("X");
+                            {
+                                bool solid = block.Components[height, width].Physics.Solid;
+                                if (!solid)
+                                {
+                                    if (startLine.HasValue && startLine.Value == line
+                                        && column == 0
+                                        && start.HasValue && start.Value.X == height && start.Value.Y == width)
+                                        sb.Append("o");
+                                    else
+                                        sb.Append(" ");
+                                }
+                                else
+                                    sb.Append("X");
+                            }                            
                         }
                     }
                     sb.AppendLine();
