@@ -16,19 +16,10 @@
                     <h5 class="pb15 mb15">
                         Créer un composants
                     </h5>
+                    
                     <div class="">
 
-                        <!--@using (Html.BeginForm("PostComponent", "Editor", FormMethod.Post, new { role = "form" , enctype = "multipart/form-data", id = "my_form" }))
-                        {
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                @Html.TextBoxFor(Model => Model.Name, new { id= "name", placeholder = "name" })
-                            </div>
-                        }-->
-
-
-                        <!--<form role="form" id="my_form" method="post" action="@Url.Action("PostComponent","Editor")" enctype="multipart/form-data">-->
-@using (Html.BeginForm("PostComponent", "Editor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("PostComponent", "Editor", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", id = "my_form" }))
 {
                             <div class="form-group">
                                 <label for="name">Nom</label>
@@ -41,18 +32,17 @@
                             </div>
 
 
-foreach (var property in Model.Physics.GetType().GetProperties())
-{
-        <div class="form-control">
-            <label>@property.Name</label>
-            @Html.CheckBox(property.Name, property.GetValue(Model.Physics))
-        </div>
-}
+                            foreach (var property in Model.Physics.GetType().GetProperties())
+                            {
+                                    <div class="form-control">
+                                        <label>@property.Name</label>
+                                        @Html.CheckBox("Physics."+ property.Name, property.GetValue(Model.Physics))
+                                    </div>
+                            }
 
 
                             <button type="submit" class="btn btn-primary">Envoyer</button>
 }
-                       <!-- </form>-->
                     </div>
                 </div>
             </div>
